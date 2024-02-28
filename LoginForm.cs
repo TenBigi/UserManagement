@@ -20,6 +20,11 @@ namespace UserManagemet
             LoadUsersFromXML();
         }
 
+        private string GetXmlPath()
+        {
+            return Path.Combine("../../../data", "Users.xml");
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string login = usrNameBox.Text;
@@ -49,7 +54,7 @@ namespace UserManagemet
             List<User> users;
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<User>));
-            using (TextReader reader = new StreamReader("users.xml"))
+            using (TextReader reader = new StreamReader(GetXmlPath()))
             {
                 try
                 {
@@ -102,7 +107,7 @@ namespace UserManagemet
             }
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<User>));
-            using (TextWriter writer = new StreamWriter("Users.xml"))
+            using (TextWriter writer = new StreamWriter(GetXmlPath()))
             {
                 serializer.Serialize(writer, usersToSave);
             }

@@ -12,8 +12,10 @@ namespace UserManagemet.Data
     {
         public static List<User> Users { get; set; } = new List<User>();
 
-        private readonly string keyFilePath = "aesKey.bin";
-        private readonly string ivFilePath = "aesIV.bin";
+        private string GetFilePath(string file)
+        {
+            return Path.Combine("../../../data", file);
+        }
 
         public byte[] Key { get; private set; }
         public byte[] IV { get; private set; }
@@ -44,6 +46,8 @@ namespace UserManagemet.Data
 
         public byte[] LoadOrGenerateKey()
         {
+            string keyFilePath = GetFilePath("aesKey.bin");
+
             if (File.Exists(keyFilePath))
             {
                 Key = File.ReadAllBytes(keyFilePath);
@@ -58,6 +62,8 @@ namespace UserManagemet.Data
 
         public byte[] LoadOrGenerateIV()
         {
+            string ivFilePath = GetFilePath("aesIV.bin");
+
             if (File.Exists(ivFilePath))
             {
                 IV = File.ReadAllBytes(ivFilePath);
