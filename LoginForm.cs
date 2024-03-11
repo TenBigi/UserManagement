@@ -30,10 +30,11 @@ namespace UserManagemet
             string login = usrNameBox.Text;
             string passwd = passwdBox.Text;
 
-            User loginUsr = Logic.Users.FirstOrDefault(x => x.Name == login && x.Password == passwd);
-            if (loginUsr != null)
+            User currentUsr = DbHelper.IsUserInDatabase(login, passwd);
+
+            if (currentUsr != null)
             {
-                ApplicationForm app = new(loginUsr);
+                ApplicationForm app = new ApplicationForm(currentUsr); 
                 app.Show();
             }
             else
